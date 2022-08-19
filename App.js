@@ -7,47 +7,130 @@
  * @flow strict-local
  */
 
- import React, {useState} from 'react';
+ import React, {useState, useEffect} from 'react';
  import {View, StyleSheet, Text, FlatList, TouchableOpacity, Switch} from 'react-native';
  import Sound from 'react-native-sound';  
+ Sound.setCategory('Playback');
+
+ var a = new Sound('a.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load a', error);
+    return;
+  }
+ });
+
+
+ var ab = new Sound('ab.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load ab', error);
+    return;
+  }
+});
+
+var b = new Sound('b.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load b', error);
+    return;
+  }
+});
+ 
+
+var bb = new Sound('bb.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load b', error);
+    return;
+  }
+});
+
+var c = new Sound('c.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load c', error);
+    return;
+  }
+});
+
+var d = new Sound('d.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load d', error);
+    return;
+  }
+});
+
+var db = new Sound('db.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load db', error);
+    return;
+  }
+});
+
+var e = new Sound('e.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load e', error);
+    return;
+  }
+});
+
+var eb = new Sound('eb.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load eb', error);
+    return;
+  }
+});
+
+var f = new Sound('f.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load f', error);
+    return;
+  }
+});
+
+var g = new Sound('g.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load g', error);
+    return;
+  }
+});
+
+var gb = new Sound('gb.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load gb', error);
+    return;
+  }
+});
+
+var cva = new Sound('cva.mp3', Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log('Failed to load cva', error);
+    return;
+  }
+});
 
  
- 
- const App = () => {
-
+const App = () => {
   const whiteKeys = [
-    {note: 'C', sound: 'c.mp3'},
-    {note: 'D', sound: 'd.mp3'},
-    {note: 'E', sound: 'e.mp3'},
-    {note: 'F', sound: 'f.mp3'},
-    {note: 'G', sound: 'g.mp3'},
-    {note: 'A', sound: 'a.mp3'},
-    {note: 'B', sound: 'b.mp3'},
-    {note: 'C', sound: 'cva.mp3'},
+    {note: 'C', sound: c},
+    {note: 'D', sound: d},
+    {note: 'E', sound: e},
+    {note: 'F', sound: f},
+    {note: 'G', sound: g},
+    {note: 'A', sound: a},
+    {note: 'B', sound: b},
+    {note: 'C', sound: cva},
   ]
 
   const blackKeys = [
-    {note: 'Db\nC#', sound: 'db.mp3', position: 45},
-    {note: 'Eb\nD#', sound: 'eb.mp3', position: 60},
-    {note: 'Gb\nF#', sound: 'gb.mp3', position: 150},    
-    {note: 'Ab\nG#', sound: 'ab.mp3', position: 165},
-    {note: 'Bb\nA#', sound: 'bb.mp3', position: 180},
+    {note: 'Db\nC#', sound: db, position: 45},
+    {note: 'Eb\nD#', sound: eb, position: 60},
+    {note: 'Gb\nF#', sound: gb, position: 150},    
+    {note: 'Ab\nG#', sound: ab, position: 165},
+    {note: 'Bb\nA#', sound: bb, position: 180},
   ]
 
   const [showNotes, setShowNotes] = useState(false)
 
-  const playSound = (sound) =>{
-    var note = new Sound(sound, Sound.MAIN_BUNDLE, error => {
-      if (error) {
-        console.log('Failed to load laugh', error);
-        return;
-      }
-      note.setSpeed(1).play()
-     });
-  }
   const WhiteKey = ({note, sound}) => {
   return(
-    <TouchableOpacity style = {styles.whiteKey} onPress = {() => playSound(sound)}>
+    <TouchableOpacity style = {styles.whiteKey} onPress = {() =>sound.setSpeed(1).play()}>
       <Text style = {[styles.whiteKeyText, {color: showNotes ? "black" : "white"}]}>{note}</Text>
     </TouchableOpacity>
   )
@@ -55,7 +138,7 @@
 
   const BlackKey = ({note, sound, position}) => {
     return(
-      <TouchableOpacity style = {[styles.blackKey, {transform: [{translateY: 200}, {translateX: position}]}]} onPress = {() => playSound(sound)}>
+      <TouchableOpacity style = {[styles.blackKey, {transform: [{translateY: 200}, {translateX: position}]}]} onPress = {() => sound.setSpeed(1).play()}>
         <Text style = {[styles.blackKeyText, {color: showNotes ? "white" : "black"}]}>{note}</Text>
       </TouchableOpacity>
     )
