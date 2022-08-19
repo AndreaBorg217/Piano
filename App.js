@@ -9,35 +9,45 @@
 
  import React, {useState} from 'react';
  import {View, StyleSheet, Text, FlatList, TouchableOpacity, Switch} from 'react-native';
- 
+ import Sound from 'react-native-sound';  
+
  
  
  const App = () => {
 
   const whiteKeys = [
-    {note: 'C', sound: 'C.mp3'},
-    {note: 'D', sound: 'D.mp3'},
-    {note: 'E', sound: 'E.mp3'},
-    {note: 'F', sound: 'F.mp3'},
-    {note: 'G', sound: 'G.mp3'},
-    {note: 'A', sound: 'A.mp3'},
-    {note: 'B', sound: 'B.mp3'},
-    {note: 'C', sound: 'C_va.mp3'},
+    {note: 'C', sound: 'c.mp3'},
+    {note: 'D', sound: 'd.mp3'},
+    {note: 'E', sound: 'e.mp3'},
+    {note: 'F', sound: 'f.mp3'},
+    {note: 'G', sound: 'g.mp3'},
+    {note: 'A', sound: 'a.mp3'},
+    {note: 'B', sound: 'b.mp3'},
+    {note: 'C', sound: 'cva.mp3'},
   ]
 
   const blackKeys = [
-    {note: 'Db\nC#', sound: 'Db.mp3', position: 45},
-    {note: 'Eb\nD#', sound: 'Eb.mp3', position: 60},
-    {note: 'Gb\nF#', sound: 'Gb.mp3', position: 150},    
-    {note: 'Ab\nG#', sound: 'Ab.mp3', position: 165},
-    {note: 'Bb\nA#', sound: 'Bb.mp3', position: 180},
+    {note: 'Db\nC#', sound: 'db.mp3', position: 45},
+    {note: 'Eb\nD#', sound: 'eb.mp3', position: 60},
+    {note: 'Gb\nF#', sound: 'gb.mp3', position: 150},    
+    {note: 'Ab\nG#', sound: 'ab.mp3', position: 165},
+    {note: 'Bb\nA#', sound: 'bb.mp3', position: 180},
   ]
 
   const [showNotes, setShowNotes] = useState(false)
 
+  const playSound = (sound) =>{
+    var note = new Sound(sound, Sound.MAIN_BUNDLE, error => {
+      if (error) {
+        console.log('Failed to load laugh', error);
+        return;
+      }
+      note.setSpeed(1).play()
+     });
+  }
   const WhiteKey = ({note, sound}) => {
   return(
-    <TouchableOpacity style = {styles.whiteKey} onPress = {console.log(sound)}>
+    <TouchableOpacity style = {styles.whiteKey} onPress = {() => playSound(sound)}>
       <Text style = {[styles.whiteKeyText, {color: showNotes ? "black" : "white"}]}>{note}</Text>
     </TouchableOpacity>
   )
@@ -45,7 +55,7 @@
 
   const BlackKey = ({note, sound, position}) => {
     return(
-      <TouchableOpacity style = {[styles.blackKey, {transform: [{translateY: 200}, {translateX: position}]}]} onPress = {console.log(sound)}>
+      <TouchableOpacity style = {[styles.blackKey, {transform: [{translateY: 200}, {translateX: position}]}]} onPress = {() => playSound(sound)}>
         <Text style = {[styles.blackKeyText, {color: showNotes ? "white" : "black"}]}>{note}</Text>
       </TouchableOpacity>
     )
